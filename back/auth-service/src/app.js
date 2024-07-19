@@ -8,7 +8,7 @@ const axios = require('axios');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-const SECRET_KEY = process.env.AUTH_SECRET_KEY;
+const SECRET_KEY = process.env.AUTH_SECRET_KEY || 'your_jwt_secret';
 
 app.use(bodyParser.json());
 app.use(cors());
