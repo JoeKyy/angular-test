@@ -171,15 +171,27 @@ npm test
 
 ## Implementação na AWS
 
-Para implementar este projeto na AWS, siga estas etapas sugeridas:
+Este projeto é uma aplicação full-stack composta por um frontend em Angular e vários serviços backend em Node.js. O objetivo principal do projeto é gerenciar autenticação de usuários, cobranças e renegociações. Para hospedar e gerenciar esta aplicação na AWS, podemos utilizar uma combinação de vários serviços da AWS para garantir escalabilidade, segurança e facilidade de manutenção.
 
-### Serviços AWS sugeridos:
+### Estrutura do Projeto na AWS:
 
-1. **AWS Elastic Beanstalk**: Usado para implantar e gerenciar os serviços backend (auth-service, charge-service, renegotiation-service).
-2. **AWS S3 e CloudFront**: Usado para hospedar o frontend Angular.
-3. **AWS RDS**: Banco de dados relacional para armazenar informações persistentes de usuários, cobranças e renegociações.
-4. **AWS Lambda**: Para funções serverless adicionais, se necessário.
-5. **Amazon API Gateway**: Para gerenciar as APIs de maneira eficiente e segura.
-6. **AWS Cognito**: Para gerenciar a autenticação de usuários.
+A estrutura do projeto na AWS pode ser dividida da seguinte forma:
+
+#### Frontend
+  - **S3 (Simple Storage Service)**: Para hospedar a aplicação Angular estática.
+  - **CloudFront**: Para fornecer CDN (Content Delivery Network) e HTTPS.
+
+#### Backend
+  - **API Gateway**: Para gerenciar as APIs e rotear as solicitações para os serviços backend.
+  - **AWS Lambda**: Para hospedar os serviços backend de autenticação, cobrança e renegociação sem precisar gerenciar servidores.
+  - **DynamoDB**: Para armazenamento de dados NoSQL, adequado para armazenar informações de usuários, cobranças e renegociações.
+  
+  ##### Autenticação:
+  - **Cognito**: Para gerenciar a autenticação de usuários, permitindo autenticação segura e escalável.
+  
+  ##### **Infraestrutura e Configuração**:
+  - **CloudFormation**: Para gerenciar a infraestrutura como código.
+  - **IAM (Identity and Access Management)**: Para gerenciar permissões e segurança.
+  - **CloudWatch**: Para monitoramento e logging dos serviços.
 
 ___
