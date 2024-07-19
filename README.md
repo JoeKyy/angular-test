@@ -53,35 +53,29 @@ cd ../renegotiation-service
 npm install
 ```
 
-### JSON Server
+### Configurar JSON Server
 
-O `json-server` é usado para simular uma API REST para testes. Para configurar o `json-server`, siga as etapas abaixo:
+Para simular uma API REST para o serviço de autenticação, utilizamos o json-server.
 
-1. Instale o `json-server` globalmente:
+Inicie o json-server:
 
-   ```bash
-   npm install -g json-server
-   ```
+```sh
+json-server --watch db.json --port 3004
+```
 
-2. No diretório do back-end, na pasta do `auth-service`, crie um arquivo `db.json` com o seguinte conteúdo:
+Certifique-se de que o arquivo `db.json` está no diretório raiz do serviço de autenticação com o seguinte conteúdo:
 
-   ```json
-   {
-     "users": [
-       {
-         "id": 1,
-         "username": "test",
-         "password": "test"
-       }
-     ]
-   }
-   ```
-
-3. Inicie o `json-server`:
-
-   ```bash
-   json-server --watch db.json --port 3004
-   ```
+```json
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "test",
+      "password": "test"
+    }
+  ]
+}
+```
 
 ## Execução do Projeto
 
@@ -175,4 +169,17 @@ npm test
 
 - `src/app.js`: Arquivo principal da aplicação.
 
----
+## Implementação na AWS
+
+Para implementar este projeto na AWS, siga estas etapas sugeridas:
+
+### Serviços AWS sugeridos:
+
+1. **AWS Elastic Beanstalk**: Usado para implantar e gerenciar os serviços backend (auth-service, charge-service, renegotiation-service).
+2. **AWS S3 e CloudFront**: Usado para hospedar o frontend Angular.
+3. **AWS RDS**: Banco de dados relacional para armazenar informações persistentes de usuários, cobranças e renegociações.
+4. **AWS Lambda**: Para funções serverless adicionais, se necessário.
+5. **Amazon API Gateway**: Para gerenciar as APIs de maneira eficiente e segura.
+6. **AWS Cognito**: Para gerenciar a autenticação de usuários.
+
+___
