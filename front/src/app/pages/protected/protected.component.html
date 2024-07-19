@@ -1,0 +1,27 @@
+<div class="flex-container">
+  <mat-card class="protected-card">
+    <mat-card-header>
+      <mat-card-title>Charges</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <ul>
+        <li *ngFor="let charge of charges">
+          ID: {{charge.id}}, Amount: {{charge.amount}}
+        </li>
+      </ul>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="protected-card">
+    <mat-card-header>
+      <mat-card-title>Renegotiations</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <ul>
+        <li *ngFor="let renegotiation of renegotiations">
+          ID: {{renegotiation.id}}, Status: {{renegotiation.status}}
+        </li>
+      </ul>
+    </mat-card-content>
+  </mat-card>
+  <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+</div>

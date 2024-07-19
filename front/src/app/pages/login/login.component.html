@@ -1,0 +1,31 @@
+<div class="flex-container">
+  <mat-card class="login-card" *ngIf="!showRegister">
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    <form (ngSubmit)="login()">
+      <mat-card-content>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Username</mat-label>
+          <input title="username" matInput [(ngModel)]="username" name="username" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Password</mat-label>
+          <input title="password" matInput [(ngModel)]="password" name="password" type="password" required>
+        </mat-form-field>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" type="submit">Login</button>
+          <button mat-button color="secondary" type="button" (click)="toggleRegister()">Register</button>
+        </mat-card-actions>
+        <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+      </mat-card-content>
+    </form>
+  </mat-card>
+
+  <mat-card class="register-card" *ngIf="showRegister">
+    <app-register></app-register>
+    <mat-card-actions>
+      <button mat-button (click)="toggleRegister()">Back to Login</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

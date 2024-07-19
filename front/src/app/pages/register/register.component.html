@@ -1,0 +1,23 @@
+<div class="flex-container">
+  <mat-card class="register-card">
+    <mat-card-header>
+      <mat-card-title>Register</mat-card-title>
+    </mat-card-header>
+    <form (ngSubmit)="register()">
+      <mat-card-content>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Username</mat-label>
+          <input title="register-username" matInput [(ngModel)]="registerUsername" name="registerUsername" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Password</mat-label>
+          <input title="register-password" matInput [(ngModel)]="registerPassword" name="registerPassword" type="password" required>
+        </mat-form-field>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" type="submit">Register</button>
+        </mat-card-actions>
+        <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+      </mat-card-content>
+    </form>
+  </mat-card>
+</div>
