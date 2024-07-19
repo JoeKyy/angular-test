@@ -1,0 +1,38 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "username": "admin",
+      "password": "123mudar"
+    },
+    {
+      "id": "e61e",
+      "username": "joekyy",
+      "password": "14091988"
+    }
+  ],
+  "charges": [
+    {
+      "id": "1",
+      "amount": 100,
+      "userId": 1
+    },
+    {
+      "id": "2",
+      "amount": 150.5,
+      "userId": 2
+    }
+  ],
+  "renegotiations": [
+    {
+      "id": "1",
+      "status": "pending",
+      "userId": 1
+    },
+    {
+      "id": "2",
+      "status": "approved",
+      "userId": 2
+    }
+  ]
+}

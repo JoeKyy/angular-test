@@ -160,6 +160,9 @@ npm test
 #### Serviço de Autenticação
 
 - `src/app.js`: Arquivo principal da aplicação.
+- `src/controllers`: Contém os controladores como authController.js.
+- `src/middlewares`: Contém os middlewares como tokenMiddleware.js.
+- `src/services`: Contém os serviços como authService.js
 
 #### Serviço de Cobrança
 
@@ -185,10 +188,10 @@ A estrutura do projeto na AWS pode ser dividida da seguinte forma:
   - **API Gateway**: Para gerenciar as APIs e rotear as solicitações para os serviços backend.
   - **AWS Lambda**: Para hospedar os serviços backend de autenticação, cobrança e renegociação sem precisar gerenciar servidores.
   - **DynamoDB**: Para armazenamento de dados NoSQL, adequado para armazenar informações de usuários, cobranças e renegociações.
-  
+
   ##### Autenticação:
   - **Cognito**: Para gerenciar a autenticação de usuários, permitindo autenticação segura e escalável.
-  
+
   ##### **Infraestrutura e Configuração**:
   - **CloudFormation**: Para gerenciar a infraestrutura como código.
   - **IAM (Identity and Access Management)**: Para gerenciar permissões e segurança.
