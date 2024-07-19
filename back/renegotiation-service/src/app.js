@@ -1,4 +1,3 @@
-// src/app.js ou src/index.js
 require('dotenv').config();
 
 const express = require('express');
