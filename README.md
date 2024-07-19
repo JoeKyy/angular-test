@@ -53,6 +53,36 @@ cd ../renegotiation-service
 npm install
 ```
 
+### JSON Server
+
+O `json-server` é usado para simular uma API REST para testes. Para configurar o `json-server`, siga as etapas abaixo:
+
+1. Instale o `json-server` globalmente:
+
+   ```bash
+   npm install -g json-server
+   ```
+
+2. No diretório do back-end, na pasta do `auth-service`, crie um arquivo `db.json` com o seguinte conteúdo:
+
+   ```json
+   {
+     "users": [
+       {
+         "id": 1,
+         "username": "test",
+         "password": "test"
+       }
+     ]
+   }
+   ```
+
+3. Inicie o `json-server`:
+
+   ```bash
+   json-server --watch db.json --port 3004
+   ```
+
 ## Execução do Projeto
 
 ### Iniciar os Serviços de Backend
@@ -128,7 +158,7 @@ npm test
 ### Frontend
 
 - `src/app/pages`: Contém as principais páginas como login e páginas protegidas.
-- `src/app/services`: Contém serviços como \`auth.service.ts\`, \`charge.service.ts\`, e \`renegotiation.service.ts\`.
+- `src/app/services`: Contém serviços como `auth.service.ts`, `charge.service.ts`, e `renegotiation.service.ts`.
 - `src/app/modules`: Contém módulos do Angular e componentes compartilhados.
 
 ### Backend
