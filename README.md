@@ -253,6 +253,8 @@ npm test
 - `src/app/pages`: Contém as principais páginas como login e páginas protegidas.
 - `src/app/services`: Contém serviços como `auth.service.ts`, `charge.service.ts`, e `renegotiation.service.ts`.
 - `src/app/modules`: Contém módulos do Angular e componentes compartilhados.
+- `src/app/interceptors`: Contém interceptores HTTP, como `auth.interceptor.ts`, que é responsável por adicionar cabeçalhos de autenticação e credenciais do cliente às requisições HTTP.
+- `src/environments`: Contém arquivos de configuração de ambiente, como `environment.ts` e `environment.prod.ts`, onde estão definidas variáveis como URLs das APIs e credenciais do cliente.
 
 ### Backend
 
