@@ -293,13 +293,6 @@ npm test
 
 Este projeto é uma aplicação full-stack composta por um frontend em Angular e vários serviços backend em Node.js. O objetivo principal do projeto é gerenciar autenticação de usuários, cobranças e renegociações. Para hospedar e gerenciar esta aplicação na AWS, podemos utilizar uma combinação de vários serviços da AWS para garantir escalabilidade, segurança e facilidade de manutenção.
 
-### Estrutura do Projeto na AWS:
-
-A estrutura do projeto na AWS pode ser dividida da seguinte forma:
-
-![project_structure](https://github.com/user-attachments/assets/231ba1a6-2beb-4841-b9d1-47ccf19178ad)
-
-
 #### Frontend
   - **S3 (Simple Storage Service)**: Para hospedar a aplicação Angular estática.
   - **CloudFront**: Para fornecer CDN (Content Delivery Network) e HTTPS.
@@ -316,5 +309,61 @@ A estrutura do projeto na AWS pode ser dividida da seguinte forma:
   - **CloudFormation**: Para gerenciar a infraestrutura como código.
   - **IAM (Identity and Access Management)**: Para gerenciar permissões e segurança.
   - **CloudWatch**: Para monitoramento e logging dos serviços.
+
+## Gerar Diagrama da Arquitetura AWS
+
+Este projeto utiliza a biblioteca `diagrams` para gerar um diagrama da arquitetura da aplicação. Siga os passos abaixo para gerar o diagrama.
+
+### Passos para Gerar o Diagrama
+
+1. **Instale as dependências necessárias:**
+
+Certifique-se de ter o Python instalado e depois instale as dependências necessárias utilizando o comando abaixo:
+
+```sh
+ pip install -r requirements.txt
+```
+
+2. **Gere o diagrama:**
+
+Execute o script aws_diagram.py para gerar o diagrama da arquitetura:
+
+```sh
+python diagrams/aws_diagram.py
+```
+
+Este comando irá gerar um arquivo AWS Fullstack Application.png no diretório atual contendo o diagrama da arquitetura.
+
+### Estrutura do Projeto na AWS:
+
+A estrutura do projeto na AWS pode ser dividida da seguinte forma:
+
+![aws_fullstack_application](https://github.com/user-attachments/assets/d671fda2-fdba-47e8-80b0-46b132208dd7)
+
+### Descrição do Diagrama
+
+O diagrama gerado representa a arquitetura da aplicação na AWS, incluindo os seguintes componentes:
+
+- **Frontend:**
+  - **S3:** Para hospedar a aplicação Angular estática.
+  - **CloudFront:** Para fornecer CDN (Content Delivery Network) e HTTPS.
+
+- **Backend:**
+  - **API Gateway:** Para gerenciar as APIs e rotear as solicitações para os serviços backend.
+  - **Auth Service:**
+    - **Lambda:** Para o serviço de autenticação.
+    - **Cognito:** Para gerenciar a autenticação de usuários.
+  - **Charge Service:**
+    - **Lambda:** Para o serviço de cobrança.
+    - **DynamoDB:** Para armazenar dados de cobrança.
+  - **Renegotiation Service:**
+    - **Lambda:** Para o serviço de renegociação.
+    - **DynamoDB:** Para armazenar dados de renegociação.
+
+  - **Infrastructure & Configuration:**
+    - **CloudFormation:** Para gerenciar a infraestrutura como código.
+    - **IAM:** Para gerenciar permissões e segurança.
+    - **CloudWatch:** Para monitoramento e logging dos serviços.
+
 
 ___
