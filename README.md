@@ -1,5 +1,5 @@
 
-# i-test
+# angular-test
 
 ## Descrição do Projeto
 
@@ -69,9 +69,38 @@ Certifique-se de que o arquivo `db.json` está no diretório raiz do serviço de
 {
   "users": [
     {
-      "id": 1,
-      "username": "test",
-      "password": "test"
+      "id": "1",
+      "username": "admin",
+      "password": "123mudar"
+    },
+    {
+      "id": "e61e",
+      "username": "joekyy",
+      "password": "14091988"
+    }
+  ],
+  "charges": [
+    {
+      "id": "1",
+      "amount": 100,
+      "userId": 1
+    },
+    {
+      "id": "2",
+      "amount": 150.5,
+      "userId": 2
+    }
+  ],
+  "renegotiations": [
+    {
+      "id": "1",
+      "status": "pending",
+      "userId": 1
+    },
+    {
+      "id": "2",
+      "status": "approved",
+      "userId": 2
     }
   ]
 }
@@ -179,6 +208,9 @@ Este projeto é uma aplicação full-stack composta por um frontend em Angular e
 ### Estrutura do Projeto na AWS:
 
 A estrutura do projeto na AWS pode ser dividida da seguinte forma:
+
+![project_structure](https://github.com/user-attachments/assets/231ba1a6-2beb-4841-b9d1-47ccf19178ad)
+
 
 #### Frontend
   - **S3 (Simple Storage Service)**: Para hospedar a aplicação Angular estática.
