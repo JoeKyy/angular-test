@@ -27,8 +27,8 @@ Para começar com o projeto, siga estes passos:
 ### Clonar o Repositório
 
 ```sh
-git clone https://github.com/JoeKyy/i-test.git
-cd i-test
+git clone https://github.com/JoeKyy/angular-test.git
+cd angular-test
 ```
 
 ### Instalar Dependências
