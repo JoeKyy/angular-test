@@ -150,6 +150,7 @@ touch .env
 6. Adicione as seguintes variáveis ao arquivo `.env` para o `charge-service`:
 
 ```sh
+AUTH_SECRET_KEY=your_secret_key
 CLIENT_ID=your_client_id
 CLIENT_SECRET=your_client_secret
 PORT=3002
@@ -170,6 +171,7 @@ touch .env
 9. Adicione as seguintes variáveis ao arquivo `.env` para o `renegotiation-service`:
 
 ```sh
+AUTH_SECRET_KEY=your_secret_key
 CLIENT_ID=your_client_id
 CLIENT_SECRET=your_client_secret
 PORT=3003
