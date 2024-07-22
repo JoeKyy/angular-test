@@ -63,7 +63,7 @@ Inicie o json-server:
 json-server --watch db.json --port 3004
 ```
 
-Certifique-se de que o arquivo `db.json` está no diretório raiz do serviço de autenticação com o seguinte conteúdo:
+Certifique-se de que o arquivo `db.json` está no diretório `db` do back=end com o seguinte conteúdo:
 
 ```json
 {
@@ -105,6 +105,76 @@ Certifique-se de que o arquivo `db.json` está no diretório raiz do serviço de
   ]
 }
 ```
+
+## Configuração dos Arquivos .env
+
+Para configurar as variáveis de ambiente do projeto, siga as etapas abaixo para criar e preencher os arquivos `.env` necessários nos serviços backend.
+
+### Backend
+
+Para cada serviço backend (`auth-service`, `charge-service`, `renegotiation-service`), siga estas etapas:
+
+1. Navegue até o diretório do serviço:
+
+```sh
+cd back/auth-service
+```
+
+2. Crie um arquivo `.env` na raiz do diretório do serviço:
+
+```sh
+touch .env
+```
+
+3. Adicione as seguintes variáveis ao arquivo `.env` (exemplo para o `auth-service`):
+
+```sh
+AUTH_SECRET_KEY=your_secret_key
+CLIENT_ID=your_client_id
+CLIENT_SECRET=your_client_secret
+PORT=3001
+```
+
+4. Navegue até o diretório do próximo serviço (`charge-service`):
+
+```sh
+cd ../charge-service
+```
+
+5. Crie um arquivo `.env` na raiz do diretório do serviço:
+
+```sh
+touch .env
+```
+
+6. Adicione as seguintes variáveis ao arquivo `.env` para o `charge-service`:
+
+```sh
+CLIENT_ID=your_client_id
+CLIENT_SECRET=your_client_secret
+PORT=3002
+```
+
+7. Navegue até o diretório do próximo serviço (`renegotiation-service`):
+
+```sh
+cd ../renegotiation-service
+```
+
+8. Crie um arquivo `.env` na raiz do diretório do serviço:
+
+```sh
+touch .env
+```
+
+9. Adicione as seguintes variáveis ao arquivo `.env` para o `renegotiation-service`:
+
+```sh
+CLIENT_ID=your_client_id
+CLIENT_SECRET=your_client_secret
+PORT=3003
+```
+
 
 ## Execução do Projeto
 
@@ -188,18 +258,34 @@ npm test
 
 #### Serviço de Autenticação
 
+- `server.js`: Arquivo que inicia o servidor da aplicação.
 - `src/app.js`: Arquivo principal da aplicação.
 - `src/controllers`: Contém os controladores como authController.js.
 - `src/middlewares`: Contém os middlewares como tokenMiddleware.js.
 - `src/services`: Contém os serviços como authService.js
+- `src/routes`: Contém as rotas como authRoutes.js
 
 #### Serviço de Cobrança
 
+- `server.js`: Arquivo que inicia o servidor da aplicação.
 - `src/app.js`: Arquivo principal da aplicação.
+- `src/controllers`: Contém os controladores como chargeController.js.
+- `src/middlewares`: Contém os middlewares como tokenMiddleware.js.
+- `src/services`: Contém os serviços como chargeService.js
+- `src/routes`: Contém as rotas como chargeRoutes.js
 
 #### Serviço de Renegociação
 
+- `server.js`: Arquivo que inicia o servidor da aplicação.
 - `src/app.js`: Arquivo principal da aplicação.
+- `src/controllers`: Contém os controladores como renegotiationController.js.
+- `src/middlewares`: Contém os middlewares como tokenMiddleware.js.
+- `src/services`: Contém os serviços como renegotiationService.js
+- `src/routes`: Contém as rotas como renegotiationRoutes.js
+
+#### Banco de dados
+
+- `db.json`: Arquivo que contem o banco de dados inicial do projeto.
 
 ## Implementação na AWS
 
