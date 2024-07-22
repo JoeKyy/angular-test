@@ -5,8 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node server.js",
-    "test": "jest",
-    "json-server": "json-server --watch db.json --port 3004"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
