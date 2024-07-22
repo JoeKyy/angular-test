@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ChargeService } from '../../services/charge/charge.service';
 import { RenegotiationService } from '../../services/renegotiation/renegotiation.service';
+import { AuthService } from '../../services';
 
 @Component({
   selector: 'app-protected',
@@ -15,7 +16,8 @@ export class ProtectedComponent implements OnInit {
   constructor(
     private chargeService: ChargeService,
     private renegotiationService: RenegotiationService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
@@ -30,6 +32,7 @@ export class ProtectedComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching charges:', error);
+        this.charges = [];
       }
     );
   }
@@ -41,12 +44,13 @@ export class ProtectedComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching renegotiations:', error);
+        this.renegotiations = [];
       }
     );
   }
 
   logout() {
-    localStorage.removeItem('access_token');
+    this.authService.logout();
     this.router.navigate(['/']);
   }
 }

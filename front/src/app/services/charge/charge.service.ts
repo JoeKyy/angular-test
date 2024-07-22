@@ -1,18 +1,17 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from '../auth/auth.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChargeService {
-  private chargeUrl = 'http://localhost:3002/api/charges';
+  private chargeUrl = environment.chargeApiUrl;
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient) { }
 
   getCharges(): Observable<any> {
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.authService.token ? this.authService.token : ''}`);
-    return this.http.get(this.chargeUrl, { headers });
+    return this.http.get(`${this.chargeUrl}/charges`);
   }
 }

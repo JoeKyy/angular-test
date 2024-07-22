@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 
@@ -16,7 +16,6 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private ngZone: NgZone
   ) {}
 
   ngOnInit(): void {}
@@ -24,7 +23,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.authService.login(this.username, this.password).subscribe(
       (response) => {
-        localStorage.setItem('access_token', response.token);
+        this.authService.setToken(response.token);
         this.router.navigate(['/protected']);
         this.errorMessage = '';
       },

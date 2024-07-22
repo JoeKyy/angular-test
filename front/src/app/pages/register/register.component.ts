@@ -15,7 +15,6 @@ export class RegisterComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private ngZone: NgZone
   ) {}
 
   ngOnInit(): void {}
@@ -23,8 +22,8 @@ export class RegisterComponent implements OnInit {
   register(): void {
     this.authService.register(this.registerUsername, this.registerPassword).subscribe(
       (response) => {
-        localStorage.setItem('access_token', response.token);
-        this.ngZone.run(() => this.router.navigate(['/protected']));
+        this.authService.setToken(response.token);
+        this.router.navigate(['/protected']);
         this.errorMessage = '';
       },
       (error) => {

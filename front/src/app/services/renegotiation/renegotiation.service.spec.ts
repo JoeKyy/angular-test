@@ -2,6 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { RenegotiationService } from './renegotiation.service';
 import { AuthService } from '../auth/auth.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../../interceptors/auth.interceptor';
 
 describe('RenegotiationService', () => {
   let service: RenegotiationService;
@@ -9,11 +11,19 @@ describe('RenegotiationService', () => {
   let authService: AuthService;
 
   beforeEach(() => {
+    const authServiceMock = {
+      isAuthenticated: jest.fn().mockReturnValue(true),
+      getTokenFromStorage: jest.fn().mockReturnValue('mockToken')
+    };
+
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [RenegotiationService, AuthService]
+      providers: [
+        RenegotiationService,
+        { provide: AuthService, useValue: authServiceMock },
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+      ]
     });
-
     service = TestBed.inject(RenegotiationService);
     httpMock = TestBed.inject(HttpTestingController);
     authService = TestBed.inject(AuthService);
@@ -23,36 +33,25 @@ describe('RenegotiationService', () => {
     httpMock.verify();
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-
-  it('should add authorization header with token when calling getRenegotiations', () => {
-    const dummyRenegotiations = [{ id: 1, status: 'pending' }, { id: 2, status: 'approved' }];
-    const token = '12345';
-    jest.spyOn(authService, 'token', 'get').mockReturnValue(token);
-
-    service.getRenegotiations().subscribe(renegotiations => {
-      expect(renegotiations).toEqual(dummyRenegotiations);
+  it('should get renegotiations successfully', () => {
+    const mockRenegotiations = [{ id: 1, status: 'pending' }, { id: 2, status: 'approved' }];
+    service.getRenegotiations().subscribe((renegotiations) => {
+      expect(renegotiations).toEqual(mockRenegotiations);
     });
 
     const req = httpMock.expectOne('http://localhost:3003/api/renegotiations');
     expect(req.request.method).toBe('GET');
-    expect(req.request.headers.get('Authorization')).toBe(`Bearer ${token}`);
-    req.flush(dummyRenegotiations);
+    expect(req.request.headers.get('Authorization')).toBe('Bearer mockToken');
+    req.flush(mockRenegotiations);
   });
 
-  it('should add authorization header without token when no token is available', () => {
-    const dummyRenegotiations = [{ id: 1, status: 'pending' }, { id: 2, status: 'approved' }];
-    jest.spyOn(authService, 'token', 'get').mockReturnValue(null);
-
-    service.getRenegotiations().subscribe(renegotiations => {
-      expect(renegotiations).toEqual(dummyRenegotiations);
+  it('should throw an error if fetching renegotiations fails', () => {
+    service.getRenegotiations().subscribe({
+      next: () => fail('expected an error, not renegotiations'),
+      error: (error) => expect(error.message).toContain('Failed to fetch renegotiations')
     });
 
     const req = httpMock.expectOne('http://localhost:3003/api/renegotiations');
-    expect(req.request.method).toBe('GET');
-    expect(req.request.headers.get('Authorization')).toBe('Bearer ');
-    req.flush(dummyRenegotiations);
+    req.flush('Failed to fetch renegotiations', { status: 500, statusText: 'Server Error' });
   });
 });

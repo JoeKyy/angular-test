@@ -16,6 +16,7 @@ describe('RegisterComponent', () => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;
   let authService: AuthService;
+  let router: Router;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -38,6 +39,7 @@ describe('RegisterComponent', () => {
     fixture = TestBed.createComponent(RegisterComponent);
     component = fixture.componentInstance;
     authService = TestBed.inject(AuthService);
+    router = TestBed.inject(Router);
     fixture.detectChanges();
   });
 
@@ -53,7 +55,7 @@ describe('RegisterComponent', () => {
   });
 
   it('should register successfully and navigate to protected route', () => {
-    const navigateSpy = jest.spyOn((component as any).router, 'navigate');
+    const navigateSpy = jest.spyOn(router, 'navigate').mockImplementation(() => Promise.resolve(true));
     jest.spyOn(authService, 'register').mockReturnValue(of({ token: '12345' }));
 
     component.registerUsername = 'newuser';
