@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ChargeService } from '../../services/charge/charge.service';
 import { RenegotiationService } from '../../services/renegotiation/renegotiation.service';
-import { AuthService } from '../../services';
+import { AuthService } from '../../services/auth/auth.service';
+import { ChargeModel, RenegotiationModel } from '../../models';
 
 @Component({
   selector: 'app-protected',
@@ -10,14 +11,14 @@ import { AuthService } from '../../services';
   styleUrls: ['./protected.component.scss']
 })
 export class ProtectedComponent implements OnInit {
-  charges: any[] = [];
-  renegotiations: any[] = [];
+  charges: ChargeModel[] = [];
+  renegotiations: RenegotiationModel[] = [];
 
   constructor(
     private chargeService: ChargeService,
     private renegotiationService: RenegotiationService,
     private router: Router,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -27,7 +28,7 @@ export class ProtectedComponent implements OnInit {
 
   getCharges() {
     this.chargeService.getCharges().subscribe(
-      (data) => {
+      (data: { charges: ChargeModel[] }) => {
         this.charges = data.charges;
       },
       (error) => {
@@ -39,7 +40,7 @@ export class ProtectedComponent implements OnInit {
 
   getRenegotiations() {
     this.renegotiationService.getRenegotiations().subscribe(
-      (data) => {
+      (data: { renegotiations: RenegotiationModel[] }) => {
         this.renegotiations = data.renegotiations;
       },
       (error) => {

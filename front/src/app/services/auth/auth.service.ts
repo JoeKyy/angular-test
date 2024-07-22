@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { AuthResponseModel } from '../../models';
 
 @Injectable({
   providedIn: 'root'
@@ -12,18 +13,12 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  login(username: string, password: string): Observable<any> {
-
-    return this.http.post(`${this.apiUrl}/auth`, { username, password });
+  login(username: string, password: string): Observable<AuthResponseModel> {
+    return this.http.post<AuthResponseModel>(`${this.apiUrl}/auth`, { username, password });
   }
 
-  register(username: string, password: string): Observable<any> {
-
-    return this.http.post(`${this.apiUrl}/register`, { username, password });
-  }
-
-  getToken(clientId: string, clientSecret: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/token`, { clientId, clientSecret });
+  register(username: string, password: string): Observable<AuthResponseModel> {
+    return this.http.post<AuthResponseModel>(`${this.apiUrl}/register`, { username, password });
   }
 
   logout() {
