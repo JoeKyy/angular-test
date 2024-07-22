@@ -28,10 +28,6 @@ const verifyToken = (req, res, next) => {
   });
 };
 
-app.get('/api/charges', verifyToken, (req, res) => {
-  res.json({ charges: [{ id: 1, amount: 100 }, { id: 2, amount: 200 }] });
-});
-
 if (require.main === module) {
   app.listen(PORT, () => console.log(`Charges service running on port ${PORT}`));
 }
