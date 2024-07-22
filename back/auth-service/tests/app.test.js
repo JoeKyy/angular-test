@@ -87,8 +87,6 @@ describe('AuthController', () => {
 
       const response = await request(app)
         .post('/api/auth')
-        .set('Authorization', 'Bearer mockToken')
-        .set('Client-Credentials', 'validClientId:validClientSecret')
         .send({ username: 'test', password: 'password' });
 
       expect(response.status).toBe(200);
@@ -100,8 +98,6 @@ describe('AuthController', () => {
 
       const response = await request(app)
         .post('/api/auth')
-        .set('Authorization', 'Bearer mockToken')
-        .set('Client-Credentials', 'validClientId:validClientSecret')
         .send({ username: 'test', password: 'wrongpassword' });
 
       expect(response.status).toBe(401);
@@ -115,8 +111,6 @@ describe('AuthController', () => {
 
       const response = await request(app)
         .post('/api/register')
-        .set('Authorization', 'Bearer mockToken')
-        .set('Client-Credentials', 'validClientId:validClientSecret')
         .send({ username: 'newuser', password: 'password' });
 
       expect(response.status).toBe(200);
@@ -128,8 +122,6 @@ describe('AuthController', () => {
 
       const response = await request(app)
         .post('/api/register')
-        .set('Authorization', 'Bearer mockToken')
-        .set('Client-Credentials', 'validClientId:validClientSecret')
         .send({ username: 'existinguser', password: 'password' });
 
       expect(response.status).toBe(400);
@@ -179,10 +171,7 @@ describe('verifyToken Middleware', () => {
     next = jest.fn();
   });
 
-  it('should call next if token is valid and client credentials are valid', () => {
-    process.env.CLIENT_ID = 'validClientId';
-    process.env.CLIENT_SECRET = 'validClientSecret';
-
+  it('should call next if token is valid', () => {
     jwt.verify.mockImplementation((token, secret, callback) => {
       callback(null, { id: 1 });
     });
@@ -193,20 +182,16 @@ describe('verifyToken Middleware', () => {
     expect(req.userId).toBe(1);
   });
 
-  it('should return 403 if no token or client credentials are provided', () => {
+  it('should return 403 if no token is provided', () => {
     req.headers.authorization = '';
-    req.headers['client-credentials'] = '';
 
     verifyToken(req, res, next);
 
     expect(res.status).toHaveBeenCalledWith(403);
-    expect(res.send).toHaveBeenCalledWith('Token and client credentials are required');
+    expect(res.send).toHaveBeenCalledWith('Token is required');
   });
 
   it('should return 500 if token is invalid', () => {
-    process.env.CLIENT_ID = 'validClientId';
-    process.env.CLIENT_SECRET = 'validClientSecret';
-
     jwt.verify.mockImplementation((token, secret, callback) => {
       callback(new Error('Invalid token'));
     });
@@ -215,21 +200,5 @@ describe('verifyToken Middleware', () => {
 
     expect(res.status).toHaveBeenCalledWith(500);
     expect(res.send).toHaveBeenCalledWith('Failed to authenticate token.');
-  });
-
-  it('should return 401 if client credentials are invalid', () => {
-    process.env.CLIENT_ID = 'validClientId';
-    process.env.CLIENT_SECRET = 'validClientSecret';
-
-    req.headers['client-credentials'] = 'invalidClientId:invalidClientSecret';
-
-    jwt.verify.mockImplementation((token, secret, callback) => {
-      callback(null, { id: 1 });
-    });
-
-    verifyToken(req, res, next);
-
-    expect(res.status).toHaveBeenCalledWith(401);
-    expect(res.send).toHaveBeenCalledWith('Invalid client credentials');
   });
 });

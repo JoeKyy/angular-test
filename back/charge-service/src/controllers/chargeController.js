@@ -1,12 +1,11 @@
 const chargeService = require('../services/chargeService');
 
 const getCharges = async (req, res) => {
-  const { userId } = req;
   try {
-    const charges = await chargeService.getCharges(userId);
+    const charges = await chargeService.getCharges();
     res.json({ charges });
   } catch (error) {
-    res.status(500).send('Failed to fetch charges');
+    res.status(500).send(error.message);
   }
 };
 

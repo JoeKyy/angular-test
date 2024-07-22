@@ -3,19 +3,16 @@ const SECRET_KEY = process.env.AUTH_SECRET_KEY || 'your_jwt_secret';
 
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
-  const clientHeader = req.headers['client-credentials'];
 
-  if (!authHeader || !clientHeader) return res.status(403).send('Token and client credentials are required');
+  if (!authHeader) {
+    return res.status(403).send('Token is required');
+  }
 
   const token = authHeader.split(' ')[1];
-  const [clientId, clientSecret] = clientHeader.split(':');
 
   jwt.verify(token, SECRET_KEY, (err, decoded) => {
     if (err) {
       return res.status(500).send('Failed to authenticate token.');
-    }
-    if (clientId !== process.env.CLIENT_ID || clientSecret !== process.env.CLIENT_SECRET) {
-      return res.status(401).send('Invalid client credentials');
     }
     req.userId = decoded.id;
     next();
